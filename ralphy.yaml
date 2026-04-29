@@ -1,0 +1,37 @@
+project:
+  name: tower-defense-mvp
+  root: .
+
+agent:
+  type: codex
+  model: gpt-5.3
+  temperature: 0.2
+
+context:
+  files:
+    - PRD.md
+    - TASKS.md
+
+execution:
+  mode: task-loop
+  max_iterations: 3
+  auto_commit: true
+
+rules:
+  - 每次只允许执行一个Task
+  - 必须严格按照TASKS.md推进
+  - 不允许跳过任务
+  - 不允许实现未定义功能
+  - 不允许重构整个项目
+  - 修改必须限定在当前任务范围
+
+output:
+  require:
+    - 修改文件列表
+    - 执行步骤说明
+    - 验证方法
+    - 当前完成的Task编号
+
+safety:
+  git_checkpoint: true
+  rollback_on_error: true

@@ -1,5 +1,6 @@
 {
   "compileType": "miniprogram",
+  "miniprogramRoot": "miniprogram/",
   "libVersion": "trial",
   "packOptions": {
     "ignore": [],
@@ -24,5 +25,6 @@
     "tabIndent": "auto",
     "tabSize": 2
   },
-  "appid": "wx399319806d12f5d2"
+  "appid": "wx399319806d12f5d2",
+  "srcMiniprogramRoot": "miniprogram/"
 }
