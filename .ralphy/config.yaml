@@ -3,10 +3,11 @@
 
 # Project info (auto-detected, edit if needed)
 project:
-  name: "TD-Game-1"
-  language: "Unknown"
-  framework: ""
-  description: ""  # Add a brief description
+  name: TD-Game-1
+  language: JavaScript
+  framework: WeChat Mini Program
+  description: 使用微信小程序实现一个塔防小游戏 MVP，按 PRD.md 和 TASKS.md 分阶段开发。
+  
 
 # Commands (auto-detected from package.json/pyproject.toml)
 commands:
@@ -14,22 +15,60 @@ commands:
   lint: ""
   build: ""
 
-# Rules - instructions the AI MUST follow
-# These are injected into every prompt
-rules:
-  # Examples:
-  # - "Always use TypeScript strict mode"
-  # - "Follow the error handling pattern in src/utils/errors.ts"
-  # - "All API endpoints must have input validation with Zod"
-  # - "Use server actions instead of API routes in Next.js"
-  #
-  # Skills/playbooks (optional):
-  # - "Before coding, read and follow any relevant skill/playbook docs under .opencode/skills, .claude/skills, or .github/skills."
+
 
 # Boundaries - files/folders the AI should not modify
 boundaries:
   never_touch:
-    # Examples:
-    # - "src/legacy/**"
-    # - "migrations/**"
-    # - "*.lock"
+    - PRD.md
+    - TASKS.md
+    - project.config.json
+    - project.private.config.json
+
+agent:
+  type: codex
+  model: gpt-5.3
+  temperature: 0.2
+
+context:
+  files:
+    - PRD.md
+    - TASKS.md
+
+execution:
+  mode: task-loop
+  max_iterations: 3
+  auto_commit: true
+
+
+rules:
+  - 每次只执行当前指定的一个 Task，不允许顺手推进下一个 Task。
+  - 每次任务完成后，必须在终端输出“完成摘要”。
+  - 完成摘要必须包含：当前 Task 编号、修改文件列表、是否修改 PRD.md/TASKS.md、验证方法、下一步建议。
+  - 每次任务完成后，必须更新 .ralphy/progress.txt。
+  - .ralphy/progress.txt 中必须记录当前完成的 Task、修改文件、验证结果、下一步 Task。
+  - 如果任务已经完成，不要重复修改代码，只输出已确认完成。
+  - 不允许修改 PRD.md 和 TASKS.md，除非任务明确要求。
+  - 不允许一次性实现多个 Task。
+  - 不允许引入非 MVP 范围功能。
+  - 对微信小程序项目，优先保持简单结构，不引入第三方游戏引擎。
+  - 必须严格按照TASKS.md推进
+  - 不允许跳过任务
+  - 不允许实现未定义功能
+  - 不允许重构整个项目
+  - 修改必须限定在当前任务范围
+
+
+output:
+  require:
+    - 修改文件列表
+    - 执行步骤说明
+    - 验证方法
+    - 当前完成的Task编号
+
+safety:
+  git_checkpoint: true
+  rollback_on_error: true
+
+capabilities:
+  browser: auto

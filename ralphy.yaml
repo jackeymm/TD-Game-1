@@ -3,8 +3,8 @@ project:
   root: .
 
 agent:
-  type: codex
-  model: gpt-5.3
+  type: openai
+  model: gpt-4o
   temperature: 0.2
 
 context:

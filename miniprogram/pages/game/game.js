@@ -1,7 +1,13 @@
+const initialGameState = {
+  gold: 100,
+  life: 10,
+  wave: 1,
+  enemies: [],
+  towers: []
+}
+
 Page({
   data: {
-    life: 10,
-    gold: 100,
-    wave: 1
+    gameState: initialGameState
   }
 })

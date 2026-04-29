@@ -2,15 +2,15 @@
   <view class="hud">
     <view class="hud-item">
       <text class="hud-label">生命</text>
-      <text class="hud-value">{{life}}</text>
+      <text class="hud-value">{{gameState.life}}</text>
     </view>
     <view class="hud-item">
       <text class="hud-label">金币</text>
-      <text class="hud-value">{{gold}}</text>
+      <text class="hud-value">{{gameState.gold}}</text>
     </view>
     <view class="hud-item">
       <text class="hud-label">波次</text>
-      <text class="hud-value">{{wave}}</text>
+      <text class="hud-value">{{gameState.wave}}</text>
     </view>
   </view>
 
